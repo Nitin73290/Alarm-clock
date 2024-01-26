@@ -1,0 +1,81 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Alarm clock</title>
+    <link rel="stylesheet" href="alarm.css">
+</head>
+
+<body>
+    <div class="container">
+        <h1>alarm clock</h1>
+    <audio id="myAudio">
+        <source src="music.mp3" type="audio/mpeg" />
+    </audio>
+    <h3>Current time:</h3>
+    <h3 id="samay"></h3>
+    <h3>hours:</h3>
+    <input type="number" id="hrs" />
+    <h3>minutes:</h3>
+    <input type="number" id="min" />
+    <h3>seconds:</h3>
+    <input type="number" id="sec" />
+    <button id="set" onclick="invoke()">Set Alarm</button>
+</div>
+    <script>
+        // function addit(h,m,s){
+
+        // }
+        function check() {
+            // Create a new Date object
+            var currentDate = new Date();
+
+            // Get the current time components
+            var hours = currentDate.getHours();
+            var minutes = currentDate.getMinutes();
+            var seconds = currentDate.getSeconds();
+
+            // Format the time components
+            var formattedTime =
+                (hours % 12) +
+                ":" +
+                (minutes < 10 ? "0" : "") +
+                minutes +
+                ":" +
+                (seconds < 10 ? "0" : "") +
+                seconds;
+
+            // Update the HTML content
+            document.getElementById("samay").innerText = formattedTime;
+            var [hrs, min, sec] = invoke(); // destructuring
+
+            if (hours % 12 == hrs && minutes == min && seconds == sec) {
+                PLAY();
+            }
+        }
+        check();
+        // Set an interval to update the time every second (1000 milliseconds)
+        setInterval(check, 1000);
+        function invoke() {
+            var hour = document.getElementById("hrs").value;
+            var min = document.getElementById("min").value;
+            var sec = document.getElementById("sec").value;
+            return [hour, min, sec];
+        }
+        var x = document.getElementById("myAudio");
+        function PLAY() {
+            x.play();
+            console.log("music is played");
+        }
+        function stop() {
+            x.pause();
+            console.log("stop the alarm");
+        }
+    </script>
+    <button onclick="stop()">STOP</button>
+
+</body>
+
+</html>
